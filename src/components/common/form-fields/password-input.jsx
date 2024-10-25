@@ -17,7 +17,7 @@ export const PasswordInput = ({
 	};
 
 	return (
-		<InputGroup className={className}>
+		<InputGroup className={`${className} ${errorMessage ? "mb-5" : ""}`}>
 			{!!iconBefore && (
 				<InputGroup.Text>
 					<i className={`pi pi-${iconBefore}`}></i>
@@ -32,7 +32,7 @@ export const PasswordInput = ({
 					isInvalid={!!errorMessage}
 					{...rest}
 				/>
-				<FormControl.Feedback type="invalid">
+				<FormControl.Feedback type="invalid" style={{ position: "absolute" }}>
 					{errorMessage}
 				</FormControl.Feedback>
 			</FloatingLabel>
