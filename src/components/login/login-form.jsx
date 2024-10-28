@@ -3,7 +3,7 @@ import React from "react";
 import { Alert, Card } from "react-bootstrap";
 import "./login-form.scss";
 import { PasswordInput, TextInput, SubmitButton } from "../common/form-fields";
-import { loginAction } from "@/actions/auth-action";
+import { loginAction } from "@/actions/auth-actions";
 import { initialResponse } from "@/helpers/form-validation";
 import { useFormState } from "react-dom";
 

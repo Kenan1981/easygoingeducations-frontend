@@ -1,5 +1,5 @@
 "use client"
-import { logoutAction } from "@/actions/auth-action";
+import { logoutAction } from "@/actions/auth-actions";
 import { swConfirm } from "@/helpers/sweetalert";
 import React from "react";
 import { Button } from "react-bootstrap";
