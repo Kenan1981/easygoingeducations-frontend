@@ -1,4 +1,5 @@
 import {
+	ADMIN_CREATE_API,
 	ADMIN_DELETE_API,
 	ADMIN_GET_ALL_BY_PAGE_API,
 } from "@/helpers/api-routes";
@@ -13,6 +14,13 @@ export const getAllAdminsByPage = async (
 	const qs = `page=${page}&size=${size}&sort=${sort}&type=${type}`;
 
 	return fetch(`${ADMIN_GET_ALL_BY_PAGE_API}?${qs}`, {
+		headers: await getAuthHeader(),
+	});
+};
+
+export const createAdmin = async (payload) => {
+	return fetch(`${ADMIN_CREATE_API}`, {
+		method: "POST",
 		headers: await getAuthHeader(),
 	});
 };
