@@ -32,6 +32,7 @@ export const SelectInput = ({
 					name={name}
 					placeholder={label}
 					isInvalid={!!errorMessage}
+					defaultValue=""
 					{...rest}
 				>
 					<option value="" disabled>
