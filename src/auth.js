@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { login } from "./services/auth-service";
+import { getIsTokenValid } from "./helpers/auth-helper";
 
 const config = {
 	providers: [
@@ -32,6 +33,9 @@ const config = {
             const isLoggedIn = !!userRole;
             const isInLoginPage = pathname.startsWith("/login");
             const isInDashboardPages = pathname.startsWith("/dashboard");
+			const isTokenValid = getIsTokenValid(auth?.accessToken);
+
+			console.log(isTokenValid)
 
             if (isLoggedIn) {
                 if (isInLoginPage) {
@@ -48,8 +52,6 @@ const config = {
             else if(isInDashboardPages) {
                 return false;
             }
-
-
 
 
 			return true;

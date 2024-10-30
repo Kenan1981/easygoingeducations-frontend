@@ -15,8 +15,6 @@ export const DateInput = ({
 }) => {
 	const [date, setDate] = useState("");
 
-	console.log(value);
-
 	useEffect(() => {
 		if (value) {
 			setDate(new Date(value));
@@ -35,7 +33,9 @@ export const DateInput = ({
 				<Calendar
 					{...rest}
 					name={name}
-					className="form-control w-100"
+					className={`form-control w-100 ${
+						errorMessage ? "is-invalid" : ""
+					}`}
 					value={date}
 					onChange={(e) => setDate(e.value)}
 				/>
