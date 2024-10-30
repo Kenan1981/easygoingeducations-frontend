@@ -1,6 +1,6 @@
 "use client";
 import { Calendar } from "primereact/calendar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FloatingLabel, FormControl, InputGroup } from "react-bootstrap";
 
 export const DateInput = ({
@@ -10,8 +10,19 @@ export const DateInput = ({
 	className,
 	iconBefore,
 	iconAfter,
+	value,
 	...rest
 }) => {
+	const [date, setDate] = useState("");
+
+	console.log(value)
+
+	useEffect(() => {
+		if (value) {
+			setDate(value);
+		}
+	}, [value]);
+
 	return (
 		<InputGroup className={`${className} ${errorMessage ? "mb-5" : ""}`}>
 			{!!iconBefore && (
@@ -21,7 +32,12 @@ export const DateInput = ({
 			)}
 
 			<FloatingLabel controlId={name} label={label}>
-				<Calendar name={name} {...rest} className="form-control w-100" />
+				<Calendar
+					name={name}
+					className="form-control w-100"
+					value={date}
+					onChange={(e) => setDate(e.value)}
+				/>
 
 				<FormControl.Feedback
 					type="invalid"

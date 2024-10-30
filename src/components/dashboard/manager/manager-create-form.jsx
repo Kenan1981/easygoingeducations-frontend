@@ -56,11 +56,12 @@ export const ManagerCreateForm = () => {
 					optionValue="value"
 				/>
 
-				<TextInput
-					type="date"
+				
+
+				<DateInput
 					name="birthDay"
 					className="mb-3"
-					label="Date of borth"
+					label="Date of birth"
 					errorMessage={state?.errors?.birthDay}
 				/>
 

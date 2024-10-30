@@ -35,9 +35,17 @@ export const createManagerAction = async (prevState, formData) => {
 };
 
 export const updateManagerAction = async (prevState, formData) => {
+
+	console.log(formData)
+
+	if(!formData.get("id")) throw new Error("Id is missing in update manager action!");
+
+
 	try {
 		const fields = transformFormDataToJSON(formData);
 		ManagerSchema.validateSync(fields, { abortEarly: false });
+
+		console.log(fields)
 
 		const res = await updateManager(fields);
 		const data = await res.json();

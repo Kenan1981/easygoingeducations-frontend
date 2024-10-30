@@ -29,10 +29,12 @@ export const ManagerEditForm = ({ user }) => {
 		if (state.ok) router.push("/dashboard/manager");
 	}
 
-	
+	console.log(user);
+
 	return (
 		<FormContainer>
 			<form action={dispatch}>
+				<input type="hidden" name="id" value={user?.userId} />
 				<TextInput
 					name="name"
 					className="mb-3"
@@ -60,14 +62,15 @@ export const ManagerEditForm = ({ user }) => {
 					defaultValue={user?.gender}
 				/>
 
-				<TextInput
-					type="date"
+				<DateInput
 					name="birthDay"
 					className="mb-3"
-					label="Date of borth"
-					defaultValue={user?.birthDay}
+					label="Date of birth"
+					value={user?.birthDay}
 					errorMessage={state?.errors?.birthDay}
 				/>
+
+				
 
 				<TextInput
 					name="birthPlace"
@@ -82,7 +85,7 @@ export const ManagerEditForm = ({ user }) => {
 					className="mb-3"
 					label="Phone number"
 					mask="999-999-9999"
-					defaultValue={user?.phoneNumber}
+					value={user?.phoneNumber}
 					errorMessage={state?.errors?.phoneNumber}
 				/>
 
@@ -91,7 +94,7 @@ export const ManagerEditForm = ({ user }) => {
 					className="mb-3"
 					label="SSN"
 					mask="999-99-9999"
-					defaultValue={user?.ssn}
+					value={user?.ssn}
 					errorMessage={state?.errors?.ssn}
 				/>
 
@@ -118,7 +121,7 @@ export const ManagerEditForm = ({ user }) => {
 				/>
 
 				<BackButton className="me-2" />
-				<SubmitButton title="Create" />
+				<SubmitButton title="Update" icon="save" />
 			</form>
 		</FormContainer>
 	);

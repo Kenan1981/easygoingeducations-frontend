@@ -29,8 +29,8 @@ export const ManagerToolbar = (row) => {
 				<i className="pi pi-file-edit"></i>
 			</Button>
 
-			<Button variant="secondary" className="ms-2">
-				<i className="pi pi-trash" onClick={handleDelete}></i>
+			<Button variant="secondary" className="ms-2" onClick={handleDelete}>
+				<i className="pi pi-trash"></i>
 			</Button>
 		</>
 	);
