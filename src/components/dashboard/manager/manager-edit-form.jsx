@@ -67,10 +67,10 @@ export const ManagerEditForm = ({ user }) => {
 					className="mb-3"
 					label="Date of birth"
 					value={user?.birthDay}
+					dateFormat="yy-mm-dd"
+					maxDate={new Date()}
 					errorMessage={state?.errors?.birthDay}
 				/>
-
-				
 
 				<TextInput
 					name="birthPlace"

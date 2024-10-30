@@ -15,11 +15,11 @@ export const DateInput = ({
 }) => {
 	const [date, setDate] = useState("");
 
-	console.log(value)
+	console.log(value);
 
 	useEffect(() => {
 		if (value) {
-			setDate(value);
+			setDate(new Date(value));
 		}
 	}, [value]);
 
@@ -33,6 +33,7 @@ export const DateInput = ({
 
 			<FloatingLabel controlId={name} label={label}>
 				<Calendar
+					{...rest}
 					name={name}
 					className="form-control w-100"
 					value={date}
