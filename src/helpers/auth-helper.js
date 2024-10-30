@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { config } from "./config";
 
 export const getAuthHeader = async () => {
 	const session = await auth();
@@ -36,4 +37,11 @@ export const getIsTokenValid = (token) => {
 
 	return jwtExpireTimestamp >= currentTimestamp;
 
+}
+
+
+export const getIsUserAuthorized = (role, path) => {
+	const userRight = config.userRightsOnRoutes.find( item=> item.urlRegex.test(path) );
+	if(!userRight) return false;
+	return userRight.roles.includes(role);
 }
