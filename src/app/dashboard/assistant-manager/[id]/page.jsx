@@ -1,20 +1,20 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
-import { ManagerEditForm } from "@/components/dashboard/manager/manager-edit-form";
-import { getManagerById } from "@/services/manager-service";
+import { AssistantEditForm } from "@/components/dashboard/assistant-manager/manager-edit-form";
+import { getAssistantById } from "@/services/assistant-service";
 import React from "react";
 
 const Page = async ({ params }) => {
-	const res = await getManagerById(params.id);
+	const res = await getAssistantById(params.id);
 	const data = await res.json();
 
 	if (!res.ok) throw new Error(data?.message);
 
 	return (
 		<>
-			<PageHeader title="Edit Manager" />
+			<PageHeader title="Edit Assistant" />
 			<Spacer />
-			<ManagerEditForm user={data?.object} />
+			<AssistantEditForm user={data?.object} />
 			<Spacer />
 		</>
 	);

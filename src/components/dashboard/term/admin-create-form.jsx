@@ -1,5 +1,5 @@
 "use client";
-import { updateAssistantAction } from "@/actions/assistant-action";
+import { createAdminAction } from "@/actions/admin-actions";
 import {
 	DateInput,
 	FormContainer,
@@ -15,29 +15,25 @@ import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useFormState } from "react-dom";
 
-export const AssistantEditForm = ({ user }) => {
-	const [state, dispatch] = useFormState(
-		updateAssistantAction,
-		initialResponse
-	);
+export const AdminCreateForm = () => {
+	const [state, dispatch] = useFormState(createAdminAction, initialResponse);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/assistant-manager");
+		if (state.ok) router.push("/dashboard/admin");
 	}
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<input type="hidden" name="id" value={user?.userId} />
 				<TextInput
 					name="name"
 					className="mb-3"
 					label="First name"
-					defaultValue={user?.name}
 					errorMessage={state?.errors?.name}
 				/>
 
@@ -45,7 +41,6 @@ export const AssistantEditForm = ({ user }) => {
 					name="surname"
 					className="mb-3"
 					label="Last name"
-					defaultValue={user?.surname}
 					errorMessage={state?.errors?.surname}
 				/>
 
@@ -57,16 +52,13 @@ export const AssistantEditForm = ({ user }) => {
 					options={config.genders}
 					optionLabel="label"
 					optionValue="value"
-					defaultValue={user?.gender}
 				/>
 
-				<DateInput
+				<TextInput
+					type="date"
 					name="birthDay"
 					className="mb-3"
 					label="Date of birth"
-					value={user?.birthDay}
-					dateFormat="yy-mm-dd"
-					maxDate={new Date()}
 					errorMessage={state?.errors?.birthDay}
 				/>
 
@@ -74,7 +66,6 @@ export const AssistantEditForm = ({ user }) => {
 					name="birthPlace"
 					className="mb-3"
 					label="Place of birth"
-					defaultValue={user?.birthPlace}
 					errorMessage={state?.errors?.birthPlace}
 				/>
 
@@ -83,7 +74,6 @@ export const AssistantEditForm = ({ user }) => {
 					className="mb-3"
 					label="Phone number"
 					mask="999-999-9999"
-					value={user?.phoneNumber}
 					errorMessage={state?.errors?.phoneNumber}
 				/>
 
@@ -92,7 +82,6 @@ export const AssistantEditForm = ({ user }) => {
 					className="mb-3"
 					label="SSN"
 					mask="999-99-9999"
-					value={user?.ssn}
 					errorMessage={state?.errors?.ssn}
 				/>
 
@@ -100,7 +89,6 @@ export const AssistantEditForm = ({ user }) => {
 					name="username"
 					className="mb-3"
 					label="Username"
-					defaultValue={user?.username}
 					errorMessage={state?.errors?.username}
 				/>
 
@@ -119,7 +107,7 @@ export const AssistantEditForm = ({ user }) => {
 				/>
 
 				<BackButton className="me-2" />
-				<SubmitButton title="Update" icon="save" />
+				<SubmitButton title="Create" />
 			</form>
 		</FormContainer>
 	);
