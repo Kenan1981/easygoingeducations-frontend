@@ -3,8 +3,11 @@ import { createTermAction } from "@/actions/term-actions";
 import {
 	DateInput,
 	FormContainer,
+	MaskedInput,
+	PasswordInput,
 	SelectInput,
 	SubmitButton,
+	TextInput,
 } from "@/components/common/form-fields";
 import { BackButton } from "@/components/common/form-fields/back-button";
 import { config } from "@/helpers/config";
