@@ -58,7 +58,7 @@ export const AdminCreateForm = () => {
 					type="date"
 					name="birthDay"
 					className="mb-3"
-					label="Date of borth"
+					label="Date of birth"
 					errorMessage={state?.errors?.birthDay}
 				/>
 
