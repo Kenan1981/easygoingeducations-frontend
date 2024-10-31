@@ -58,7 +58,10 @@ export const TermList = ({ data }) => {
 				<Column body={formatTerm} header="Term" />
 				<Column body={formatStartDate} header="Begin" />
 				<Column body={formatEndDate} header="End" />
-				<Column body={formatLastRegistrationDate} header="Last registration" />
+				<Column
+					body={formatLastRegistrationDate}
+					header="Last registration"
+				/>
 				<Column
 					header=""
 					body={TermToolbar}
