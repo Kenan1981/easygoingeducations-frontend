@@ -24,6 +24,7 @@ export const CheckInput = ({
 				id={name}
 				name={name}
 				isInvalid={!!errorMessage}
+				value="true"
 			/>
 
 			<FormControl.Feedback type="invalid">

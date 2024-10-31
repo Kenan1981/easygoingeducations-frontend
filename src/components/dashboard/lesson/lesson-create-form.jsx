@@ -1,67 +1,50 @@
 "use client";
-import { createTermAction } from "@/actions/term-actions";
+import { createLessonAction } from "@/actions/lesson-actions";
 import {
-	DateInput,
+	CheckInput,
 	FormContainer,
-	MaskedInput,
-	PasswordInput,
-	SelectInput,
 	SubmitButton,
 	TextInput,
 } from "@/components/common/form-fields";
 import { BackButton } from "@/components/common/form-fields/back-button";
-import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const TermCreateForm = () => {
-	const [state, dispatch] = useFormState(createTermAction, initialResponse);
+export const LessonCreateForm = () => {
+	const [state, dispatch] = useFormState(createLessonAction, initialResponse);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/education-term");
+		if (state.ok) router.push("/dashboard/lesson");
 	}
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<SelectInput
-					name="term"
+				<TextInput
+					name="lessonName"
 					className="mb-3"
-					label="Term"
-					errorMessage={state?.errors?.term}
-					options={config.educationTerms}
-					optionLabel="label"
-					optionValue="value"
+					label="Lesson name"
+					errorMessage={state?.errors?.lessonName}
 				/>
 
-				<DateInput
-					name="startDate"
+				<TextInput
+					name="creditScore"
+					type="number"
 					className="mb-3"
-					label="Start Date"
-					minDate={new Date()}
-					dateFormat="yy-mm-dd"
-					errorMessage={state?.errors?.startDate}
+					label="Credit"
+					errorMessage={state?.errors?.creditScore}
 				/>
 
-				<DateInput
-					name="endDate"
+				<CheckInput
+					name="compulsory"
 					className="mb-3"
-					label="End Date"
-					dateFormat="yy-mm-dd"
-					errorMessage={state?.errors?.endDate}
-				/>
-
-				<DateInput
-					name="lastRegistrationDate"
-					className="mb-3"
-					label="Last Registrationt Date"
-					dateFormat="yy-mm-dd"
-					errorMessage={state?.errors?.lastRegistrationDate}
+					label="Compulsory"
+					errorMessage={state?.errors?.compulsory}
 				/>
 
 				<BackButton className="me-2" />
