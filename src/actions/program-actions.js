@@ -11,11 +11,19 @@ import { createProgram, deleteProgram } from "@/services/program-service";
 import { revalidatePath } from "next/cache";
 
 export const createProgramAction = async (prevState, formData) => {
+
 	try {
 		const fields = transformFormDataToJSON(formData);
+		console.log(fields)
 		ProgramSchema.validateSync(fields, { abortEarly: false });
 
-		const res = await createProgram(fields);
+		const payload = {
+			...fields,
+			lessonIdList: JSON.parse(fields.lessonIdList),
+		}
+
+
+		const res = await createProgram(payload);
 		const data = await res.json();
 
 		if (!res.ok) {

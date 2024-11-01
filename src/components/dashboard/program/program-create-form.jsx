@@ -23,7 +23,7 @@ export const ProgramCreateForm = ({ lessons, terms }) => {
 	);
 	const router = useRouter();
 
-	if (state.message) {
+	if (state?.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
 		if (state.ok) router.push("/dashboard/program");
 	}
@@ -45,7 +45,7 @@ export const ProgramCreateForm = ({ lessons, terms }) => {
 					name="educationTermId"
 					className="mb-3"
 					label="Term"
-					errorMessage={state?.errors?.term}
+					errorMessage={state?.errors?.educationTermId}
 					options={terms}
 					optionLabel="label"
 					optionValue="value"

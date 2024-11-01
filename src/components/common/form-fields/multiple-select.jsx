@@ -25,6 +25,12 @@ export const MultipleSelect = ({
 
 	return (
 		<InputGroup className={`${className} ${errorMessage ? "mb-5" : ""}`}>
+			<input
+				type="hidden"
+				name={name}
+				value={JSON.stringify(selectedItems)}
+			/>
+
 			{!!iconBefore && (
 				<InputGroup.Text>
 					<i className={`pi pi-${iconBefore}`}></i>
@@ -41,7 +47,9 @@ export const MultipleSelect = ({
 					display="chip"
 					placeholder="Select"
 					{...rest}
-					className="w-100 form-control"
+					className={`form-control w-100 ${
+						errorMessage ? "is-invalid" : ""
+					}`}
 				/>
 
 				<FormControl.Feedback

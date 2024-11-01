@@ -21,8 +21,6 @@ const Page = async ({ searchParams }) => {
 		dataTeachers,
 	]);
 
-	console.log(allPrograms.content[0].lessonName)
-
 	return (
 		<>
 			<PageHeader title="Programs" />

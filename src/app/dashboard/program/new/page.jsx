@@ -13,9 +13,6 @@ const Page = async () => {
 
 	const [lessons, terms] = await Promise.all([dataLessons, dataTerms]);
 
-	console.log(lessons);
-	console.log(terms);
-
 	const newTerms = terms.map((item) => ({
 		value: item.id,
 		label: `${getTermLabel(item.term)} - ${formatDateMY(item.startDate)}`,
