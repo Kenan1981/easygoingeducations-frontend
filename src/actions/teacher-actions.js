@@ -17,9 +17,15 @@ import {
 import { revalidatePath } from "next/cache";
 
 export const createTeacherAction = async (prevState, formData) => {
+	
 	try {
 		const fields = transformFormDataToJSON(formData);
+
+		console.log(fields)
+
 		TeacherSchema.validateSync(fields, { abortEarly: false });
+
+		console.log(fields)
 
 		const res = await createTeacher(fields);
 		const data = await res.json();
@@ -32,7 +38,9 @@ export const createTeacherAction = async (prevState, formData) => {
 
 		return response(true, data?.message, null);
 	} catch (err) {
+	
 		if (err instanceof YupValidationError) {
+			console.log(transformYupErrors(err.inner))
 			return transformYupErrors(err.inner);
 		}
 
