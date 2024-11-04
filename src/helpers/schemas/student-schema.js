@@ -4,7 +4,7 @@ import { isStringArray } from "../form-validation";
 
 const genders = getGenderValues();
 
-export const TeacherSchema = Yup.object({
+export const StudentSchema = Yup.object({
 	birthDay: Yup.date()
 		.typeError("Invalid date")
 		.max(new Date(), "Invalid birthdate")
@@ -14,9 +14,7 @@ export const TeacherSchema = Yup.object({
 	gender: Yup.string()
 		.oneOf(genders, "Invalid gender")
 		.required("Gender is required"),
-	lessonsIdList: Yup.string()
-		.test("isArr", "Invalid lesson type", (val) => isStringArray(val))
-		.required("Lessons is required"),
+	advisorTeacherId: Yup.string().required("Advisor teacher is required"),
 	name: Yup.string().required("First name is required"),
 	phoneNumber: Yup.string()
 		.matches(/\d{3}-\d{3}-\d{4}/, "Invalid phone number")
@@ -25,6 +23,8 @@ export const TeacherSchema = Yup.object({
 		.matches(/\d{3}-\d{2}-\d{4}/, "Invalid ssn")
 		.required("SSN is required"), // 123-35-5464,
 	surname: Yup.string().required("Last name is required"),
+	fatherName: Yup.string().required("Father name is required"),
+	motherName: Yup.string().required("Mother name is required"),
 	username: Yup.string().required("Username is required"),
 	password: Yup.string()
 		.min(8, "Must be at least 8 characters")
@@ -41,4 +41,10 @@ export const TeacherSchema = Yup.object({
 	confirmPassword: Yup.string()
 		.oneOf([Yup.ref("password")], "Passwords must match")
 		.required("Password is required"),
+});
+
+export const ChooseLessonSchema = Yup.object({
+	lessonProgramId: Yup.string()
+		.test("isArr", "Invalid lesson type", (val) => isStringArray(val))
+		.required("Lessons is required"),
 });

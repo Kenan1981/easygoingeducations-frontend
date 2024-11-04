@@ -1,20 +1,36 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
-import { ManagerEditForm } from "@/components/dashboard/manager/manager-edit-form";
-import { getManagerById } from "@/services/manager-service";
+import { TeacherEditForm } from "@/components/dashboard/teacher/teacher-edit-form";
+import { getAllPrograms } from "@/services/program-service";
+import { getTeacherById } from "@/services/teacher-service";
 import React from "react";
 
 const Page = async ({ params }) => {
-	const res = await getManagerById(params.id);
-	const data = await res.json();
+	const dataTeacher = (await getTeacherById(params.id)).json();
+	const dataPrograms = (await getAllPrograms(params.id)).json();
 
-	if (!res.ok) throw new Error(data?.message);
+	const [teacher, programs] = await Promise.all([dataTeacher, dataPrograms]);
+
+	const newPrograms = programs.map((item) => ({
+		value: item.lessonProgramId,
+		label: item.lessonName.map((lesson) => lesson.lessonName).join(" - "),
+	}));
+
+	const teacherProgramIdList = teacher.object.lessonsProgramList.map(
+		(item) => item.id
+	);
+
+	console.log(teacher.object);
 
 	return (
 		<>
-			<PageHeader title="Edit Manager" />
+			<PageHeader title="Edit Teacher" />
 			<Spacer />
-			<ManagerEditForm user={data?.object} />
+			<TeacherEditForm
+				programs={newPrograms}
+				user={teacher?.object}
+				teacherProgramIdList={teacherProgramIdList}
+			/>
 			<Spacer />
 		</>
 	);

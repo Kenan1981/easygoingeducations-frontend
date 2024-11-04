@@ -64,6 +64,7 @@ export const TeacherCreateForm = ({ programs }) => {
 					className="mb-3"
 					label="Date of birth"
 					errorMessage={state?.errors?.birthDay}
+					dateFormat="yy-mm-dd"
 				/>
 
 				<TextInput
@@ -96,10 +97,10 @@ export const TeacherCreateForm = ({ programs }) => {
 				/>
 
 				<MultipleSelect
-					name="lessonIdList"
+					name="lessonsIdList"
 					className="mb-3"
 					label="Programs"
-					errorMessage={state?.errors?.lessonIdList}
+					errorMessage={state?.errors?.lessonsIdList}
 					options={programs}
 					optionLabel="label"
 					optionValue="value"

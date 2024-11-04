@@ -1,6 +1,7 @@
 "use client";
-import { updateManagerAction } from "@/actions/manager-actions";
+import { updateTeacherAction } from "@/actions/teacher-actions";
 import {
+	CheckInput,
 	DateInput,
 	FormContainer,
 	MaskedInput,
@@ -10,6 +11,7 @@ import {
 	TextInput,
 } from "@/components/common/form-fields";
 import { BackButton } from "@/components/common/form-fields/back-button";
+import { MultipleSelect } from "@/components/common/form-fields/multiple-select";
 import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
@@ -17,22 +19,24 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const ManagerEditForm = ({ user }) => {
+export const TeacherEditForm = ({ user, programs, teacherProgramIdList }) => {
 	const [state, dispatch] = useFormState(
-		updateManagerAction,
+		updateTeacherAction,
 		initialResponse
 	);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/manager");
+		if (state.ok) router.push("/dashboard/teacher");
 	}
+
+
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<input type="hidden" name="id" value={user?.userId} />
+				<input type="hidden" name="id" value={user?.id} />
 				<TextInput
 					name="name"
 					className="mb-3"
@@ -85,6 +89,32 @@ export const ManagerEditForm = ({ user }) => {
 					mask="999-999-9999"
 					value={user?.phoneNumber}
 					errorMessage={state?.errors?.phoneNumber}
+				/>
+
+				<TextInput
+					name="email"
+					className="mb-3"
+					label="Email"
+					errorMessage={state?.errors?.email}
+					defaultValue={user?.email}
+				/>
+
+				<CheckInput
+					name="isAdvisorTeacher"
+					label="Is advisor teacher"
+					className="mb-3"
+					defaultChecked={!!user?.isAdvisor}
+				/>
+
+				<MultipleSelect
+					name="lessonsIdList"
+					className="mb-3"
+					label="Programs"
+					errorMessage={state?.errors?.lessonsIdList}
+					options={programs}
+					optionLabel="label"
+					optionValue="value"
+					values={teacherProgramIdList}
 				/>
 
 				<MaskedInput
