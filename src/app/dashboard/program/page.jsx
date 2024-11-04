@@ -34,7 +34,10 @@ const Page = async ({ searchParams }) => {
 			<Spacer />
 			<ProgramList data={allPrograms} />
 			<Spacer />
-			
+			<UnAssignedProgramList
+				programs={unAssignedPrograms}
+				teachers={newTeachers}
+			/>
 			<Spacer />
 		</>
 	);

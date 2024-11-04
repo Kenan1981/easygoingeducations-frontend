@@ -9,6 +9,7 @@ import { SelectInput, SubmitButton } from "@/components/common/form-fields";
 import { assignProgramToTeacherAction } from "@/actions/teacher-actions";
 import { initialResponse } from "@/helpers/form-validation";
 import { useFormState } from "react-dom";
+import { swAlert } from "@/helpers/sweetalert";
 
 export const UnAssignedProgramList = ({ programs, teachers }) => {
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -28,6 +29,10 @@ export const UnAssignedProgramList = ({ programs, teachers }) => {
 	const formatEnd = (row) => formatTimeLT(row.stopTime);
 	const formatLessons = (row) => getLessonNames(row.lessonName);
 
+	if (state?.message) {
+		swAlert(state?.message, state?.ok ? "success" : "error");
+	}
+
 	return (
 		<Container>
 			<DataTable
@@ -39,6 +44,9 @@ export const UnAssignedProgramList = ({ programs, teachers }) => {
 				header={header}
 				selection={selectedItems}
 				onSelectionChange={(e) => setSelectedItems(e.value)}
+				className={
+					state?.errors?.lessonProgramId ? "border border-danger" : ""
+				}
 			>
 				<Column
 					selectionMode="multiple"
@@ -55,6 +63,12 @@ export const UnAssignedProgramList = ({ programs, teachers }) => {
 				<Column body={formatEnd} header="End" />
 			</DataTable>
 
+			{state?.errors?.lessonProgramId ? (
+				<div className="text-danger mt-2">
+					{state?.errors?.lessonProgramId}
+				</div>
+			) : null}
+
 			<hr className="my-5" />
 
 			<form action={dispatch}>
@@ -64,13 +78,14 @@ export const UnAssignedProgramList = ({ programs, teachers }) => {
 					value={JSON.stringify(selectedItems)}
 				/>
 
-				<div className="d-flex align-items-center gap-2">
+				<div className="d-flex align-items-start gap-2">
 					<SelectInput
 						name="teacherId"
 						label="Teacher"
 						options={teachers}
 						optionLabel="label"
-						optinValue="value"
+						optionValue="value"
+						errorMessage={state?.errors?.teacherId}
 					/>
 					<SubmitButton title="Assign" />
 				</div>

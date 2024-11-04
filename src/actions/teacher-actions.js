@@ -80,9 +80,7 @@ export const assignProgramToTeacherAction = async (prevState, formData) => {
 			),
 		};
 
-		console.log(payload);
-
-		const res = await assignProgramToTeacher(fields);
+		const res = await assignProgramToTeacher(payload);
 		const data = await res.json();
 
 		if (!res.ok) {
