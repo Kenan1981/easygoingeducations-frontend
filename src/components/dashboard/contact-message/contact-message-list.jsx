@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { formatDatell } from "@/helpers/date-time";
 
 export const ContactMessageList = ({ data }) => {
+	const [expandedRows, setExpandedRows] = useState(null);
 	const router = useRouter();
 	const { content, size, totalElements, number } = data;
 
@@ -27,6 +27,17 @@ export const ContactMessageList = ({ data }) => {
 			? `${row.subject.substring(0, 20)} ...`
 			: row.subject;
 
+	const rowExpansionTemplate = (row) => {
+		return (
+			<div className="card mx-5">
+				<div className="card-body">
+					<div className="card-title fw-bold">{row.subject}</div>
+					<div className="card-text">{row.message}</div>
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<Container>
 			<DataTable
@@ -41,7 +52,11 @@ export const ContactMessageList = ({ data }) => {
 				first={number * size}
 				header={header}
 				onPage={onPage}
+				expandedRows={expandedRows}
+				onRowToggle={(e) => setExpandedRows(e.data)}
+				rowExpansionTemplate={rowExpansionTemplate}
 			>
+				<Column expander={true} style={{ width: "5rem" }} />
 				<Column
 					header="#"
 					body={(row, options) => options.rowIndex + 1}
