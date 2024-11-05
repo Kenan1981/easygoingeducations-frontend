@@ -1,5 +1,5 @@
 "use client";
-import { updateAssistantAction } from "@/actions/assistant-action";
+import { createStudentAction } from "@/actions/student-actions";
 import {
 	DateInput,
 	FormContainer,
@@ -8,7 +8,7 @@ import {
 	SelectInput,
 	SubmitButton,
 	TextInput,
-	BackButton
+	BackButton,
 } from "@/components/common/form-fields";
 import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
@@ -17,27 +17,25 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const AssistantEditForm = ({ user }) => {
+export const StudentCreateForm = ({ advisorTeachers }) => {
 	const [state, dispatch] = useFormState(
-		updateAssistantAction,
+		createStudentAction,
 		initialResponse
 	);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/assistant-manager");
+		if (state.ok) router.push("/dashboard/student");
 	}
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<input type="hidden" name="id" value={user?.userId} />
 				<TextInput
 					name="name"
 					className="mb-3"
 					label="First name"
-					defaultValue={user?.name}
 					errorMessage={state?.errors?.name}
 				/>
 
@@ -45,7 +43,6 @@ export const AssistantEditForm = ({ user }) => {
 					name="surname"
 					className="mb-3"
 					label="Last name"
-					defaultValue={user?.surname}
 					errorMessage={state?.errors?.surname}
 				/>
 
@@ -57,24 +54,20 @@ export const AssistantEditForm = ({ user }) => {
 					options={config.genders}
 					optionLabel="label"
 					optionValue="value"
-					defaultValue={user?.gender}
 				/>
 
 				<DateInput
 					name="birthDay"
 					className="mb-3"
 					label="Date of birth"
-					value={user?.birthDay}
-					dateFormat="yy-mm-dd"
-					maxDate={new Date()}
 					errorMessage={state?.errors?.birthDay}
+					dateFormat="yy-mm-dd"
 				/>
 
 				<TextInput
 					name="birthPlace"
 					className="mb-3"
 					label="Place of birth"
-					defaultValue={user?.birthPlace}
 					errorMessage={state?.errors?.birthPlace}
 				/>
 
@@ -83,8 +76,14 @@ export const AssistantEditForm = ({ user }) => {
 					className="mb-3"
 					label="Phone number"
 					mask="999-999-9999"
-					value={user?.phoneNumber}
 					errorMessage={state?.errors?.phoneNumber}
+				/>
+
+				<TextInput
+					name="email"
+					className="mb-3"
+					label="Email"
+					errorMessage={state?.errors?.email}
 				/>
 
 				<MaskedInput
@@ -92,15 +91,37 @@ export const AssistantEditForm = ({ user }) => {
 					className="mb-3"
 					label="SSN"
 					mask="999-99-9999"
-					value={user?.ssn}
 					errorMessage={state?.errors?.ssn}
+				/>
+
+				<TextInput
+					name="fatherName"
+					className="mb-3"
+					label="Father"
+					errorMessage={state?.errors?.fatherName}
+				/>
+
+				<TextInput
+					name="motherName"
+					className="mb-3"
+					label="Mother"
+					errorMessage={state?.errors?.motherName}
+				/>
+
+				<SelectInput
+					name="advisorTeacherId"
+					className="mb-3"
+					label="Advisor teacher"
+					errorMessage={state?.errors?.advisorTeacherId}
+					options={advisorTeachers}
+					optionLabel="label"
+					optionValue="value"
 				/>
 
 				<TextInput
 					name="username"
 					className="mb-3"
 					label="Username"
-					defaultValue={user?.username}
 					errorMessage={state?.errors?.username}
 				/>
 
@@ -119,7 +140,7 @@ export const AssistantEditForm = ({ user }) => {
 				/>
 
 				<BackButton className="me-2" />
-				<SubmitButton title="Update" icon="save" />
+				<SubmitButton title="Create" />
 			</form>
 		</FormContainer>
 	);

@@ -1,6 +1,7 @@
 "use client";
-import { updateAssistantAction } from "@/actions/assistant-action";
+import { updateStudentAction } from "@/actions/student-actions";
 import {
+	CheckInput,
 	DateInput,
 	FormContainer,
 	MaskedInput,
@@ -8,7 +9,8 @@ import {
 	SelectInput,
 	SubmitButton,
 	TextInput,
-	BackButton
+	BackButton,
+	MultipleSelect,
 } from "@/components/common/form-fields";
 import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
@@ -17,22 +19,22 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const AssistantEditForm = ({ user }) => {
+export const StudentEditForm = ({ user, advisorTeachers }) => {
 	const [state, dispatch] = useFormState(
-		updateAssistantAction,
+		updateStudentAction,
 		initialResponse
 	);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/assistant-manager");
+		if (state.ok) router.push("/dashboard/student");
 	}
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<input type="hidden" name="id" value={user?.userId} />
+				<input type="hidden" name="id" value={user?.id} />
 				<TextInput
 					name="name"
 					className="mb-3"
@@ -87,6 +89,14 @@ export const AssistantEditForm = ({ user }) => {
 					errorMessage={state?.errors?.phoneNumber}
 				/>
 
+				<TextInput
+					name="email"
+					className="mb-3"
+					label="Email"
+					errorMessage={state?.errors?.email}
+					defaultValue={user?.email}
+				/>
+
 				<MaskedInput
 					name="ssn"
 					className="mb-3"
@@ -94,6 +104,33 @@ export const AssistantEditForm = ({ user }) => {
 					mask="999-99-9999"
 					value={user?.ssn}
 					errorMessage={state?.errors?.ssn}
+				/>
+
+				<TextInput
+					name="fatherName"
+					className="mb-3"
+					label="Father"
+					errorMessage={state?.errors?.fatherName}
+					defaultValue={user?.fatherName}
+				/>
+
+				<TextInput
+					name="motherName"
+					className="mb-3"
+					label="Mother"
+					errorMessage={state?.errors?.motherName}
+					defaultValue={user?.motherName}
+				/>
+
+				<SelectInput
+					name="advisorTeacherId"
+					className="mb-3"
+					label="Advisor teacher"
+					errorMessage={state?.errors?.advisorTeacherId}
+					options={advisorTeachers}
+					optionLabel="label"
+					optionValue="value"
+					defaultValue={user?.advisorTeacherId}
 				/>
 
 				<TextInput

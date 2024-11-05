@@ -7,7 +7,7 @@ import React from "react";
 
 const Page = async ({ params }) => {
 	const dataTeacher = (await getTeacherById(params.id)).json();
-	const dataPrograms = (await getAllPrograms(params.id)).json();
+	const dataPrograms = (await getAllPrograms()).json();
 
 	const [teacher, programs] = await Promise.all([dataTeacher, dataPrograms]);
 
