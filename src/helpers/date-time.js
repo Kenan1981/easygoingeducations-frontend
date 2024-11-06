@@ -17,3 +17,7 @@ export const isLater = (timeBefore, timeAfter) => {
 	const ta = moment(timeAfter, "HH:mm");
 	return ta.isAfter(tb);
 };
+
+export const isTimeFormatValid = (timeStr) => {
+	return moment(timeStr, "HH:mm", true).isValid();
+};

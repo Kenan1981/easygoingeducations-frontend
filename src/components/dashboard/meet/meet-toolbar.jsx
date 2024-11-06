@@ -1,26 +1,27 @@
 "use client";
-import { deleteTeacherAction } from "@/actions/teacher-actions";
+import { deleteMeetAction } from "@/actions/meet-actions";
+import { formatDateMY } from "@/helpers/date-time";
 import { swAlert, swConfirm } from "@/helpers/sweetalert";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "react-bootstrap";
 
-export const TeacherToolbar = (row) => {
-	const { name, surname, userId } = row;
-	const router = useRouter();
+export const MeetToolbar = (row) => {
+	const { date, startTime, id } = row;
 
 	const handleDelete = async () => {
 		const answer = await swConfirm(
-			`Are you sure to delete ${name} ${surname}?`
+			`Are you sure to delete the meeting on ${formatDateMY(
+				date
+			)} at ${startTime}?`
 		);
 		if (!answer.isConfirmed) return;
 
-		const res = await deleteTeacherAction(userId);
+		const res = await deleteMeetAction(lessonProgramId);
 		swAlert(res.message, res.ok ? "success" : "error");
 	};
 
 	const handleEdit = () => {
-		router.push(`/dashboard/teacher/${userId}`);
+		router.push(`/dashboard/meet/${id}`);
 	};
 
 	return (
@@ -28,7 +29,6 @@ export const TeacherToolbar = (row) => {
 			<Button variant="secondary" onClick={handleEdit}>
 				<i className="pi pi-file-edit"></i>
 			</Button>
-
 			<Button variant="secondary" onClick={handleDelete}>
 				<i className="pi pi-trash"></i>
 			</Button>
