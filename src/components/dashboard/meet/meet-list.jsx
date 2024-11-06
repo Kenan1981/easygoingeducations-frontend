@@ -1,14 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { formatDatell,  formatTimeLT } from "@/helpers/date-time";
+import { formatDatell, formatTimeLT } from "@/helpers/date-time";
 import { MeetToolbar } from "./meet-toolbar";
 
 export const MeetList = ({ data }) => {
+	const [expandedRows, setExpandedRows] = useState(null);
 	const router = useRouter();
 	const { content, size, totalElements, number } = data;
 
@@ -29,6 +30,21 @@ export const MeetList = ({ data }) => {
 	const formatStart = (row) => formatTimeLT(row.startTime);
 	const formatEnd = (row) => formatTimeLT(row.stopTime);
 
+	const rowExpansionTemplate = (row) => {
+		return (
+			<div className="card mx-5">
+				<div className="card-body">
+					<div className="card-title fw-bold">Participants:</div>
+					<div className="card-text">
+						{row.students
+							.map((item) => `${item.name} ${item.surname}`)
+							.join(", ")}
+					</div>
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<Container>
 			<DataTable
@@ -43,7 +59,11 @@ export const MeetList = ({ data }) => {
 				first={number * size}
 				header={header}
 				onPage={onPage}
+				expandedRows={expandedRows}
+				onRowToggle={(e) => setExpandedRows(e.data)}
+				rowExpansionTemplate={rowExpansionTemplate}
 			>
+				<Column expander={true} style={{ width: "5rem" }} />
 				<Column
 					header="#"
 					body={(row, options) => options.rowIndex + 1}
@@ -57,7 +77,6 @@ export const MeetList = ({ data }) => {
 				<Column
 					header=""
 					body={MeetToolbar}
-					bodyStyle={{ textAlign: "right" }}
 				/>
 			</DataTable>
 		</Container>

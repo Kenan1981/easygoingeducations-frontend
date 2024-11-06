@@ -17,7 +17,7 @@ export const MeetSchema = Yup.object({
 		})
 		.required("Start time is required"),
 	stopTime: Yup.string()
-		.test("isTimeValid", "Invalid time", (val, context) => {
+		.test("isTimeValid", "Invalid time", (val) => {
 			return isTimeFormatValid(val);
 		})
 		.test(

@@ -1,20 +1,32 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
-import { ManagerEditForm } from "@/components/dashboard/manager/manager-edit-form";
-import { getManagerById } from "@/services/manager-service";
+import { MeetEditForm } from "@/components/dashboard/meet/meet-edit-form";
+import { getMeetById } from "@/services/meet-service";
+import { getAllStudentsByAdvisor } from "@/services/student-service";
 import React from "react";
 
 const Page = async ({ params }) => {
-	const res = await getManagerById(params.id);
-	const data = await res.json();
+	const dataMeet = (await getMeetById(params.id)).json();
+	const dataStudents = (await getAllStudentsByAdvisor()).json();
 
-	if (!res.ok) throw new Error(data?.message);
+	const [meet, students] = await Promise.all([dataMeet, dataStudents]);
+
+	const studentsOfAdvisor = students.map((item) => ({
+		value: item.userId,
+		label: `${item.name} ${item.surname}`,
+	}));
+
+	const studentsOfMeet = meet.object.students.map((item) => item.id);
 
 	return (
 		<>
 			<PageHeader title="Edit Manager" />
 			<Spacer />
-			<ManagerEditForm user={data?.object} />
+			<MeetEditForm
+				meet={meet.object}
+				studentsOfAdvisor={studentsOfAdvisor}
+				studentsOfMeet={studentsOfMeet}
+			/>
 			<Spacer />
 		</>
 	);

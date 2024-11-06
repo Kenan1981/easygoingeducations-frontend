@@ -25,7 +25,7 @@ export const StudentInfoToolbar = (row) => {
 	};
 
 	return (
-		<div className="d-flex gap-2">
+		<div className="d-flex gap-2 justify-content-end">
 			<Button variant="secondary" onClick={handleEdit}>
 				<i className="pi pi-file-edit"></i>
 			</Button>
