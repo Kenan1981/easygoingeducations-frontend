@@ -10,7 +10,7 @@ export const InstructorCard = (props) => {
 
 	return (
 		<Card className="instructor-card">
-			<Image src={`/img/instructors/${image}`} width={400} height={500} className="card-img-top card-img-bottom" />
+			<Image src={`/img/instructors/${image}`} width={400} height={500} className="card-img-top card-img-bottom" alt={`${firstName} ${lastName}`} />
 
             <Card.Title>
                 <h4>{firstName} {lastName}</h4>

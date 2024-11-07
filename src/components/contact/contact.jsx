@@ -18,7 +18,7 @@ export const Contact = () => {
 						feel free to reach out. Our team is dedicated to
 						providing quick and reliable responses to all inquiries.
 						Simply fill out the form below or use any of the contact
-						details provided, and we’ll get back to you as soon as
+						details provided, and we`ll get back to you as soon as
 						possible. We look forward to connecting with you!
 					</p>
 					<div className="contact-row">

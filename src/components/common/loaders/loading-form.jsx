@@ -9,7 +9,12 @@ export const LoadingForm = ({ inputCount = 5 }) => {
 	return (
 		<FormContainer>
 			{inputs.map((item) => (
-				<Skeleton width="100%" height="3.5rem" className="mb-3" />
+				<Skeleton
+					key={item}
+					width="100%"
+					height="3.5rem"
+					className="mb-3"
+				/>
 			))}
 
 			<div className="d-flex gap-2">
