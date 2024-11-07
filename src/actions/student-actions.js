@@ -79,19 +79,21 @@ export const assignProgramToStudentAction = async (prevState, formData) => {
 
 		const payload = {
 			...fields,
-			lessonProgramId: JSON.parse(fields.lessonProgramId).map(
-				(item) => item.lessonProgramId
-			),
+			lessonProgramId: JSON.parse(fields.lessonProgramId),
 		};
+
+		console.log(payload);
 
 		const res = await assignProgramToStudent(payload);
 		const data = await res.json();
+
+		console.log(data);
 
 		if (!res.ok) {
 			return response(false, data?.message, data?.validations);
 		}
 
-		revalidatePath("/dashboard/student");
+		revalidatePath("/dashboard/choose-lesson");
 
 		return response(true, data?.message, null);
 	} catch (err) {
