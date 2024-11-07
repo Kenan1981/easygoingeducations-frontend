@@ -1,3 +1,4 @@
+"use client";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Skeleton } from "primereact/skeleton";
@@ -10,19 +11,27 @@ export const LoadingList = ({ colCount = 4, rowCount = 5 }) => {
 
 	const header = (
 		<div className="d-flex justify-content-between align-items-center">
-			<h2><Skeleton width="10rem" height="2.5rem" /></h2>
-			<Skeleton width="5rem" height="2.5rem"/>
+			<h2>
+				<Skeleton width="10rem" height="2.5rem" />
+			</h2>
+			<Skeleton width="5rem" height="2.5rem" />
 		</div>
 	);
 
 	return (
 		<Container>
-			<DataTable value={rows} stripedRows showGridlines header={header} className="w-100">
+			<DataTable
+				value={rows}
+				stripedRows
+				showGridlines
+				header={header}
+				className="w-100"
+			>
 				{columns.map((col) => (
 					<Column
 						key={col}
 						field="code"
-						header="..."
+						header={<Skeleton width="3rem"/>}
 						style={{ width: `${Math.floor(100 / colCount)}%` }}
 						body={<Skeleton />}
 					></Column>

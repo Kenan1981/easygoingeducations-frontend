@@ -5,11 +5,8 @@ import { wait } from "@/helpers/misc";
 import { getAllAdminsByPage } from "@/services/admin-service";
 import React from "react";
 
-const Page = async ({searchParams}) => {
-
-	await wait();
-
-	const {page} = searchParams;
+const Page = async ({ searchParams }) => {
+	const { page } = searchParams;
 
 	const res = await getAllAdminsByPage(page);
 	const data = await res.json();
