@@ -13,7 +13,7 @@ export const Contact = () => {
 				<Card.Body>
 					<h3>Get In Touch</h3>
 					<p>
-						We're here to help! Whether you have a question, need
+						Were here to help! Whether you have a question, need
 						support, or just want to learn more about what we do,
 						feel free to reach out. Our team is dedicated to
 						providing quick and reliable responses to all inquiries.

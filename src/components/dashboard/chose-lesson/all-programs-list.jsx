@@ -40,7 +40,10 @@ export const AllProgramList = ({ allPrograms }) => {
 					<div className="card-title fw-bold">Teachers:</div>
 					<div className="card-text">
 						{row.teachers.map((item) => (
-							<div className="badge bg-secondary me-2">{`${item.name} ${item.surname}`}</div>
+							<div
+								className="badge bg-secondary me-2"
+								key={item.userId}
+							>{`${item.name} ${item.surname}`}</div>
 						))}
 					</div>
 				</div>
@@ -59,7 +62,7 @@ export const AllProgramList = ({ allPrograms }) => {
 		}
 	}, [state?.responseId]);
 
-	console.log(allPrograms)
+	console.log(allPrograms);
 
 	return (
 		<Container>
