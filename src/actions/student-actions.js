@@ -82,12 +82,8 @@ export const assignProgramToStudentAction = async (prevState, formData) => {
 			lessonProgramId: JSON.parse(fields.lessonProgramId),
 		};
 
-		console.log(payload);
-
 		const res = await assignProgramToStudent(payload);
 		const data = await res.json();
-
-		console.log(data);
 
 		if (!res.ok) {
 			return response(false, data?.message, data?.validations);

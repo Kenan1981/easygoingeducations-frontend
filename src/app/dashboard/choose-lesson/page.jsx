@@ -17,8 +17,6 @@ const Page = async () => {
 		dataStudentPrograms,
 	]);
 
-	console.log("STUDENT PROGRAMS", studentPrograms);
-
 	return (
 		<>
 			<PageHeader title="Choose Lesson" />
