@@ -1,6 +1,7 @@
 import { PageHeader } from '@/components/common/page-header/page-header'
 import { Spacer } from '@/components/common/spacer/spacer'
 import { Courses } from '@/components/courses/courses'
+import { wait } from '@/helpers/misc'
 import React from 'react'
 
 
@@ -9,7 +10,9 @@ export const metadata = {
     description: "Explore the variety of courses we offer to help you reach your goals. Learn from our experienced educators and take your learning to the next level. Let's get started!",
 }
 
-const Page = () => {
+const Page = async () => {
+  await wait()
+
   return (
     <>
         <PageHeader title="Courses" />
