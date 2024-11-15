@@ -7,7 +7,7 @@ import "./course-card.scss";
 export const CourseCard = (props) => {
 	const { title, user, comment, rating, image } = props;
 
-	return (
+		return (
 		<Card className="course-card">
 			<Card.Body>
 				<Image

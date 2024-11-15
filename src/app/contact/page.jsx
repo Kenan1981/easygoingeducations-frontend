@@ -8,6 +8,7 @@ export const metadata = {
     description: 'Get in touch with us! We are here to help. Reach out to us via email or phone.'
 }
 
+
 const Page = () => {
   return (
     <>
